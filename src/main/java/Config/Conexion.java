@@ -12,8 +12,10 @@ import java.sql.DriverManager;
  *
  * @author pc
  */
+
 public class Conexion {
     private static Connection conn;
+    
     public static Connection openConnection() {
         if ( conn != null )
             return conn;
@@ -32,6 +34,7 @@ public class Conexion {
         }
         return conn;
     }
+   
     public static void closeConnection() {
         try {
             if( conn != null ) {
