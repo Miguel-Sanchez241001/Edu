@@ -23,7 +23,7 @@ import java.util.Optional;
  */
 public class AlumnoDao implements Crud {
 
-    private final Connection conn;
+    public final Connection conn;
     private PreparedStatement ps;
     private static DocenteDao docenteDao;
     private static UsuarioDao usuarioDao;
@@ -146,6 +146,12 @@ public class AlumnoDao implements Crud {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-
+    public static void main(String[] args) {
+        AlumnoDao a = new AlumnoDao();
+        Conexion con = new Conexion();
+        System.out.println(a.conn);
+        System.out.println(con.conn);
+        
+    }
 
 }

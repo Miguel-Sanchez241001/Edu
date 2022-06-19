@@ -14,7 +14,7 @@ import java.sql.DriverManager;
  */
 
 public class Conexion {
-    private static Connection conn;
+    public static Connection conn;
     
     public static Connection openConnection() {
         if ( conn != null )
