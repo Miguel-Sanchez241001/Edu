@@ -4,6 +4,7 @@
  */
 package com.edutin.edutinservicio;
 
+import Interfaces.Fabrica;
 import Dao.AlumnoDao;
 import Dao.DocenteDao;
 import Dao.MateriaDao;
@@ -28,21 +29,25 @@ import javax.jws.WebParam;
  */
 @WebService(serviceName = "ServiciosEdutin")
 public class ServiciosEdutin {
-    /**
-     * Web service operation
-     */
+
+
     UsuarioDao usuariodao = new UsuarioDao();
     MateriaDao materiaDao = new MateriaDao();
     DocenteDao docenteDao = new DocenteDao();
     AlumnoDao alumnoDao = new AlumnoDao();
     NotaDao notaDao = new NotaDao();
+    
 
-    // ------------LISTAR---------------------- 
+    @WebMethod(operationName = "ListarFabrica")
+    public List<?> ListarFabrica(@WebParam(name = "Nota") String Tipo) {
+        return Fabrica.getLista(Tipo);
+    }
+
+//     ------------LISTAR---------------------- 
     @WebMethod(operationName = "Listar")
     public List<Usuario> Listar() {
         return usuariodao.listar();
     }
-
     @WebMethod(operationName = "ListarMaterias")
     public List<Materia> ListarMaterias() {
         return materiaDao.listar();
@@ -72,6 +77,7 @@ public class ServiciosEdutin {
      * @param Tipo
      * @return
      */
+    
     @WebMethod(operationName = "Registrar")
     public String Registrar(@WebParam(name = "UserName") String UserName, @WebParam(name = "Clave") String Clave, @WebParam(name = "Tipo") int Tipo) {
         Usuario usuario = new Usuario(UserName, Clave, Tipo);
@@ -185,12 +191,12 @@ public class ServiciosEdutin {
 
     //---------AGREGAR MENSAJE
     @WebMethod(operationName = "RegistrarMensaje")
-    public String  RegistrarMensaje(@WebParam(name = "nombre") String nombre, @WebParam(name = "mensaje") String mensaje, @WebParam(name = "Destinatario") String Destinatario) {
+    public String RegistrarMensaje(@WebParam(name = "nombre") String nombre, @WebParam(name = "mensaje") String mensaje, @WebParam(name = "Destinatario") String Destinatario) {
         chatDao dao = new chatDao();
         Chat chat = new Chat(nombre, mensaje, Destinatario);
         String res = "Error";
         try {
-           res = dao.agregarMensaje(chat);
+            res = dao.agregarMensaje(chat);
 
         } catch (Exception e) {
             System.err.println(e);

@@ -9,7 +9,8 @@ package Entidades;
  *
  * @author pc
  */
-public class Usuario {
+public class Usuario implements Entidad {
+
     private Integer id;
     private String username;
     private String clave;
@@ -26,10 +27,6 @@ public class Usuario {
         this.username = username;
         this.clave = clave;
         this.tipo = tipo;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public void setId(Integer id) {
@@ -59,5 +56,9 @@ public class Usuario {
     public void setTipo(Integer tipo) {
         this.tipo = tipo;
     }
-    
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
 }

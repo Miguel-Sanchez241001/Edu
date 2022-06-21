@@ -9,7 +9,7 @@ package Entidades;
  *
  * @author pc
  */
-public class Materia {
+public class Materia implements Entidad {
     private Integer id;
     private String materia;
 
@@ -22,9 +22,7 @@ public class Materia {
         this.materia = materia;
     }
 
-    public Integer getId() {
-        return id;
-    }
+  
 
     public void setId(Integer id) {
         this.id = id;
@@ -36,6 +34,11 @@ public class Materia {
 
     public void setMateria(String materia) {
         this.materia = materia;
+    }
+
+    @Override
+    public Integer getId() {
+        return id;
     }
 
 

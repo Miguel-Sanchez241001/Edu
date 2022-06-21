@@ -9,7 +9,7 @@ package Entidades;
  *
  * @author pc
  */
-public class Nota {
+public class Nota  {
 
     private Integer idNotas;
     private Materia idCurso;
