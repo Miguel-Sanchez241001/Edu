@@ -7,6 +7,7 @@ package Config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  *
@@ -19,7 +20,6 @@ public class Conexion {
     public static Connection openConnection() {
         if ( conn != null )
             return conn;
-
         try {
             String usuario = "root";
             String password = "root";
@@ -27,8 +27,7 @@ public class Conexion {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(url, usuario, password);
             System.out.println("Conectamos");
-
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println( e.getMessage() );
             System.out.println("Algo salio mal :( ");
         }
@@ -41,7 +40,7 @@ public class Conexion {
                 conn.close();
             }
             System.out.println("Desaconectados de la BD");
-        } catch(Exception e) {
+        } catch(SQLException e) {
             System.out.println(e.getMessage());
         }
 

@@ -9,7 +9,7 @@ package Entidades;
  *
  * @author pc
  */
-public class Docente {
+public class Docente implements   Entidad{
     
     private Integer id;
     private Usuario usuario;
@@ -38,6 +38,7 @@ public class Docente {
       this.nombre = na;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }

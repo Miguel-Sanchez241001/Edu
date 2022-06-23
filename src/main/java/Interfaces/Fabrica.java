@@ -18,17 +18,16 @@ import java.util.List;
  */
 public class Fabrica {
 
-    static UsuarioDao usuariodao = new UsuarioDao();
-    static MateriaDao materiaDao = new MateriaDao();
-    static DocenteDao docenteDao = new DocenteDao();
-    static AlumnoDao alumnoDao = new AlumnoDao();
-    static NotaDao notaDao = new NotaDao();
-    static Fabrica fab = new Fabrica();
+     UsuarioDao usuariodao = new UsuarioDao();
+     MateriaDao materiaDao = new MateriaDao();
+     DocenteDao docenteDao = new DocenteDao();
+     AlumnoDao alumnoDao = new AlumnoDao();
+     NotaDao notaDao = new NotaDao();
+     
 
-    private Fabrica() {
-    }
 
-    public static List<Entidad> getLista(String Tipo) {
+    public  List<Entidad> getLista(String Tipo) {
+        
         if (Tipo.equals("Materia")) {
             return materiaDao.listar();
         }
@@ -40,10 +39,10 @@ public class Fabrica {
         }
         if (Tipo.equals("Alumno")) {
             return alumnoDao.listar();
-        } else {
+        } 
+     
             return usuariodao.listar();
-        }
-
+      
     }
 
 }

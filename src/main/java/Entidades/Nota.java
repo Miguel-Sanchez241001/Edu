@@ -9,7 +9,7 @@ package Entidades;
  *
  * @author pc
  */
-public class Nota  {
+public class Nota implements   Entidad{
 
     private Integer idNotas;
     private Materia idCurso;
@@ -65,6 +65,11 @@ public class Nota  {
         this.idCurso = idCurso;
         this.alumno = idAlumno;
         this.nota = nota;
+    }
+
+    @Override
+    public Integer getId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

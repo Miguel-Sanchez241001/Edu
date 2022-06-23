@@ -36,11 +36,11 @@ public class ServiciosEdutin {
     DocenteDao docenteDao = new DocenteDao();
     AlumnoDao alumnoDao = new AlumnoDao();
     NotaDao notaDao = new NotaDao();
-    
+    Fabrica fab = new Fabrica();
 
     @WebMethod(operationName = "ListarFabrica")
-    public List<?> ListarFabrica(@WebParam(name = "Nota") String Tipo) {
-        return Fabrica.getLista(Tipo);
+    public List<?> ListarFabrica(@WebParam(name = "Modelo") String Tipo) {
+        return fab.getLista(Tipo);
     }
 
 //     ------------LISTAR---------------------- 
