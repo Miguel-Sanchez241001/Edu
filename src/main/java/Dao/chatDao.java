@@ -11,7 +11,7 @@ import com.mongodb.MongoClient;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import java.util.Scanner;
+
 
 import org.bson.Document;
 
@@ -60,16 +60,6 @@ public class chatDao {
         return men;
 
     }
-//    public static void main(String[] args) {
-//        chatDao dao = new chatDao();
-//        Scanner obj = new Scanner(System.in);
-//       // Chat chat = new Chat("JUANITO", "FELIZ NAVIDAD", "LUCHOITO");
-//        for (int i = 1; i <=10; i++) {
-//            System.out.println(dao.cursos());
-//        }
-//
-//        
-//
-//    }
+
 
 }
