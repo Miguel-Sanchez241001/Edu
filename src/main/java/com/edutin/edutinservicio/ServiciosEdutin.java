@@ -9,9 +9,10 @@ import Dao.DocenteDao;
 import Dao.MateriaDao;
 import Dao.NotaDao;
 import Dao.UsuarioDao;
-import Dao.chatDao;
+import Dao.EdutMongo;
 import Entidades.Alumno;
 import Entidades.Chat;
+import Entidades.Contacto;
 import Entidades.Docente;
 import Entidades.Materia;
 import Entidades.Nota;
@@ -28,6 +29,7 @@ import javax.jws.WebParam;
  */
 @WebService(serviceName = "ServiciosEdutin")
 public class ServiciosEdutin {
+
     /**
      * Web service operation
      */
@@ -185,14 +187,32 @@ public class ServiciosEdutin {
 
     //---------AGREGAR MENSAJE
     @WebMethod(operationName = "RegistrarMensaje")
-    public String  RegistrarMensaje(@WebParam(name = "nombre") String nombre, @WebParam(name = "mensaje") String mensaje, @WebParam(name = "Destinatario") String Destinatario) {
-        chatDao dao = new chatDao();
+    public String RegistrarMensaje(@WebParam(name = "nombre") String nombre, @WebParam(name = "mensaje") String mensaje, @WebParam(name = "Destinatario") String Destinatario) {
+        EdutMongo dao = new EdutMongo();
         Chat chat = new Chat(nombre, mensaje, Destinatario);
-        String res = "Error";
+        String res = "Exito";
         try {
-           res = dao.agregarMensaje(chat);
+            dao.agregarMensaje(chat);
 
         } catch (Exception e) {
+            res = e.getMessage();
+            System.err.println(e);
+        }
+        return res;
+    }
+
+//---------AGREGAR MENSAJE DE CONTACTO
+    @WebMethod(operationName = "MensajeContacto")
+    public String MensajeContacto(@WebParam(name = "nombre") String Nombre, @WebParam(name = "Apellido") String Apellido, @WebParam(name = "correo") String Correo,
+            @WebParam(name = "Telefono") Integer Telefono, @WebParam(name = "Mensaje") String Mensaje) {
+        EdutMongo dao = new EdutMongo();
+        Contacto contac = new Contacto(Nombre, Apellido, Correo, Telefono, Mensaje);
+        String res = "Exito";
+        try {
+            dao.NewContacto(contac);
+
+        } catch (Exception e) {
+            res = e.getMessage();
             System.err.println(e);
         }
         return res;
