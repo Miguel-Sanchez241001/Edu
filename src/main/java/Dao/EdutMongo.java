@@ -58,7 +58,7 @@ public class EdutMongo {
                     .append("Telefono", contac.getNumero())
                     .append("Mensaje", contac.getMensaje());
             collection.insertOne(doc1);
-           logger.info("Mensaje contacto de"+ contac.getNombre());
+           logger.info("Mensaje contacto de "+ contac.getNombre());
         } catch (Exception e) {
             logger.warn(e.getMessage());
         }

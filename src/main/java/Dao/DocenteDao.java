@@ -26,8 +26,8 @@ public class DocenteDao implements Crud {
 
     private final Connection conn;
     private PreparedStatement ps;
-    private UsuarioDao usuarioDao;
-    private MateriaDao materiaDao;
+    private final UsuarioDao usuarioDao;
+    private final MateriaDao materiaDao;
 
     public DocenteDao() {
         conn = Conexion.openConnection();

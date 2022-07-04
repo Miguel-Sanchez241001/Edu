@@ -7,6 +7,8 @@ package Config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -15,8 +17,10 @@ import java.sql.DriverManager;
 
 public class Conexion {
     public static Connection conn;
-    
+    private static final Logger LOG = Logger.getLogger(Conexion.class.getName());
+   
     public static Connection openConnection() {
+        BasicConfigurator.configure();
         if ( conn != null )
             return conn;
 
@@ -26,11 +30,11 @@ public class Conexion {
             String url = "jdbc:mysql://localhost:3306/edutin?useSSL=false&serverTimezone=UTC";
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(url, usuario, password);
-            System.out.println("Conectamos");
+           LOG.info("Conectamos");
 
         } catch (Exception e) {
-            System.out.println( e.getMessage() );
-            System.out.println("Algo salio mal :( ");
+           LOG.warn(e.getMessage() );
+            LOG.warn("Algo salio mal :( ");
         }
         return conn;
     }
@@ -40,9 +44,9 @@ public class Conexion {
             if( conn != null ) {
                 conn.close();
             }
-            System.out.println("Desaconectados de la BD");
+            LOG.info("Desaconectados de la BD");
         } catch(Exception e) {
-            System.out.println(e.getMessage());
+             LOG.warn(e.getMessage());
         }
 
     }
