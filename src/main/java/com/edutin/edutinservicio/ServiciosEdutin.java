@@ -17,6 +17,7 @@ import Entidades.Docente;
 import Entidades.Materia;
 import Entidades.Nota;
 import Entidades.Usuario;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 import javax.jws.WebService;
@@ -87,10 +88,11 @@ public class ServiciosEdutin {
     }
 
     @WebMethod(operationName = "RegistrarDocente")
-    public String RegistrarDocente(@WebParam(name = "Usuario") int idusuario, @WebParam(name = "Materia") int idMateria, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido) {
+    public String RegistrarDocente(@WebParam(name = "Usuario") int idusuario, @WebParam(name = "Materia") int idMateria, @WebParam(name = "nombre") String nombre, @WebParam(name = "apellido") String apellido,
+   @WebParam(name = "Estudios") String Estudios,@WebParam(name = "Correo") String Correo) {
         Usuario usuario = usuariodao.findId(idusuario).get();
         Materia materia = materiaDao.findId(idMateria).get();
-        Docente docente = new Docente(usuario, materia, nombre, apellido);
+        Docente docente = new Docente(usuario, materia, nombre, apellido,Correo,Estudios);
         return docenteDao.insert(docente);
     }
 
@@ -171,8 +173,21 @@ public class ServiciosEdutin {
         }
         return alumno;
     }
+ @WebMethod(operationName = "BuscarAlumnoID")
+    public Alumno BuscarAlumnoId(@WebParam(name = "idAlumno") Integer idAlumno){
+        Alumno alumno;
+        Optional<Alumno> optionalAlumno = alumnoDao.findIdUser(idAlumno);
+        if (optionalAlumno.isPresent()) {
+            alumno = optionalAlumno.get();
 
-    @WebMethod(operationName = "BuscarNota")
+        } else {
+            alumno = new Alumno("na");
+        }
+        return alumno;
+    }
+  
+          
+        @WebMethod(operationName = "BuscarNota")
     public Nota BuscarNota(@WebParam(name = "idNota") Integer idNota) {
         Nota nota;
         Optional<Nota> optionalNota = notaDao.findId(idNota);

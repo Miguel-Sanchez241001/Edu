@@ -103,7 +103,7 @@ public class AlumnoDao implements Crud {
 
                 Optional<Docente> optionalDocente = docenteDao.findId(idDocente);
                 Optional<Usuario> optionalUsuario = usuarioDao.findId(idUsuario);
-                Alumno alumno = new Alumno(rs.getInt("idAlumnos"),optionalDocente.get(), optionalUsuario.get(), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"));
+                Alumno alumno = new Alumno(rs.getInt("idAlumnos"), optionalDocente.get(), optionalUsuario.get(), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"));
                 optional = Optional.of(alumno);
             }
             ps.close();
@@ -128,7 +128,7 @@ public class AlumnoDao implements Crud {
 
                 Optional<Docente> optionalDocente = docenteDao.findId(idDocente);
                 Optional<Usuario> optionalUsuario = usuarioDao.findId(idUsuario);
-                Alumno alumno = new Alumno(rs.getInt("idAlumnos"),optionalDocente.get(), optionalUsuario.get(), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"));
+                Alumno alumno = new Alumno(rs.getInt("idAlumnos"), optionalDocente.get(), optionalUsuario.get(), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"));
                 optional = Optional.of(alumno);
                 System.out.println("Se encontro Alumno " + rs.getString("nombre"));
             }
@@ -141,17 +141,34 @@ public class AlumnoDao implements Crud {
         return optional;
     }
 
+    public Optional<Alumno> findIdUser(Integer ID) {
+        Optional<Alumno> optional = Optional.empty();
+        try {
+            String sql = "SELECT * FROM  alumnos WHERE idUser = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, ID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int idUsuario = rs.getInt("idUser");
+                int idDocente = rs.getInt("idDocente");
+
+                Optional<Docente> optionalDocente = docenteDao.findId(idDocente);
+                Optional<Usuario> optionalUsuario = usuarioDao.findId(idUsuario);
+                Alumno alumno = new Alumno(rs.getInt("idAlumnos"), optionalDocente.get(), optionalUsuario.get(), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"));
+                optional = Optional.of(alumno);
+            }
+            ps.close();
+            rs.close();
+            System.out.println("Se encontro Alumno" + rs.getString("nombre"));
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return optional;
+    }
+
     @Override
     public void deleteId(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static void main(String[] args) {
-        AlumnoDao a = new AlumnoDao();
-        Conexion con = new Conexion();
-        System.out.println(a.conn);
-        System.out.println(con.conn);
-        
     }
 
 }

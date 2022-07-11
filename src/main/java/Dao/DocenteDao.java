@@ -38,8 +38,8 @@ public class DocenteDao implements Crud {
     public String insert(Docente docente) {
 
         try {
-            String sql = "INSERT INTO docentes (idUsuario,idMateria,nombre,apellido) "
-                    + "VALUES (?, ?, ?,?)";
+            String sql = "INSERT INTO docentes (idUsuario,idMateria,nombre,apellido,estudios,correo) "
+                    + "VALUES (?, ?, ?,?,?,?)";
 
             ps = conn.prepareStatement(sql);
 
@@ -47,7 +47,9 @@ public class DocenteDao implements Crud {
             ps.setInt(2, docente.getMateria().getId());
             ps.setString(3, docente.getNombre());
             ps.setString(4, docente.getApellido());
-
+            ps.setString(5, docente.getEstudios());
+            ps.setString(6, docente.getCorreo());
+           
             ps.executeUpdate();
             ps.close();
             System.out.println("se logro insertar el docente");
@@ -91,7 +93,10 @@ public class DocenteDao implements Crud {
                 int idMateria = rs.getInt("idMateria");
                 Optional<Usuario> optionalUsuario = usuarioDao.findId(idUsuario);
                 Optional<Materia> optionalMateria = materiaDao.findId(idMateria);
-                Docente docente = new Docente(rs.getInt("idDocentes"), optionalUsuario.get(), optionalMateria.get(), rs.getString("nombre"), rs.getString("apellido"));
+                Docente docente = new Docente(rs.getInt("idDocentes"), optionalUsuario.get(), optionalMateria.get(), rs.getString("nombre"), 
+                            rs.getString("apellido"),
+                 rs.getString("estudios"),
+                 rs.getString("correo"));
 
                 optional = Optional.of(docente);
             }
@@ -108,8 +113,8 @@ public class DocenteDao implements Crud {
 
     }
 
-   public Optional<Docente> findId(int idDocente) {
-          Optional<Docente> optional = Optional.empty();
+    public Optional<Docente> findId(int idDocente) {
+        Optional<Docente> optional = Optional.empty();
         try {
             String sql = "SELECT * FROM  docentes WHERE idDocentes = ?";
             ps = conn.prepareStatement(sql);
@@ -129,6 +134,7 @@ public class DocenteDao implements Crud {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        return optional; }
+        return optional;
+    }
 
 }
